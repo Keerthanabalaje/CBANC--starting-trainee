@@ -1,0 +1,486 @@
+-- cbanc.address definition
+
+-- Drop table
+
+-- DROP TABLE cbanc.address;
+
+CREATE TABLE cbanc.address (
+	id varchar(100) NOT NULL,
+	address1 varchar(100) NULL,
+	address2 varchar(100) NULL,
+	city varchar(100) NULL,
+	state varchar(2) NULL,
+	zipcode varchar(100) NULL,
+	CONSTRAINT address_pk PRIMARY KEY (id)
+);
+
+
+-- cbanc.deal_status definition
+
+-- Drop table
+
+-- DROP TABLE cbanc.deal_status;
+
+CREATE TABLE cbanc.deal_status (
+	id varchar(100) NOT NULL,
+	status varchar(100) NOT NULL,
+	CONSTRAINT deal_status_pk PRIMARY KEY (id)
+);
+
+
+-- cbanc.disbursement_feepaidby definition
+
+-- Drop table
+
+-- DROP TABLE cbanc.disbursement_feepaidby;
+
+CREATE TABLE cbanc.disbursement_feepaidby (
+	id varchar(100) NOT NULL,
+	"name" varchar(100) NOT NULL,
+	CONSTRAINT disbursement_feepaidby_id_pk PRIMARY KEY (id)
+);
+
+
+-- cbanc.disbursement_money_status definition
+
+-- Drop table
+
+-- DROP TABLE cbanc.disbursement_money_status;
+
+CREATE TABLE cbanc.disbursement_money_status (
+	id varchar(100) NOT NULL,
+	status varchar(100) NOT NULL,
+	CONSTRAINT disbursement_money_status_pk PRIMARY KEY (id)
+);
+
+
+-- cbanc.disbursement_status definition
+
+-- Drop table
+
+-- DROP TABLE cbanc.disbursement_status;
+
+CREATE TABLE cbanc.disbursement_status (
+	id varchar(100) NOT NULL,
+	status varchar(100) NOT NULL,
+	CONSTRAINT disbursement_status_pk PRIMARY KEY (id)
+);
+
+
+-- cbanc.fi definition
+
+-- Drop table
+
+-- DROP TABLE cbanc.fi;
+
+CREATE TABLE cbanc.fi (
+	id varchar(100) NOT NULL,
+	accountid varchar(100) NOT NULL,
+	accountnumber varchar(100) NOT NULL,
+	wireroutingnumber varchar(100) NULL,
+	achroutingnumber varchar(100) NULL,
+	dwollafundingid varchar(100) NULL,
+	"name" varchar(100) NULL,
+	routingnumber varchar(100) NULL,
+	authtextid varchar(100) NULL,
+	CONSTRAINT fi_pkey PRIMARY KEY (id)
+);
+
+
+-- cbanc.loan_detail_type definition
+
+-- Drop table
+
+-- DROP TABLE cbanc.loan_detail_type;
+
+CREATE TABLE cbanc.loan_detail_type (
+	id varchar(100) NOT NULL,
+	"name" varchar(100) NOT NULL,
+	CONSTRAINT loan_detail_type_pk PRIMARY KEY (id)
+);
+
+
+-- cbanc.loan_status definition
+
+-- Drop table
+
+-- DROP TABLE cbanc.loan_status;
+
+CREATE TABLE cbanc.loan_status (
+	id varchar(100) NOT NULL,
+	"name" varchar(100) NOT NULL,
+	CONSTRAINT loan_status_pk PRIMARY KEY (id)
+);
+
+
+-- cbanc.loan_type definition
+
+-- Drop table
+
+-- DROP TABLE cbanc.loan_type;
+
+CREATE TABLE cbanc.loan_type (
+	id varchar(100) NOT NULL,
+	"type" varchar(100) NOT NULL,
+	CONSTRAINT loan_type_pk PRIMARY KEY (id)
+);
+
+
+-- cbanc.opportunity_status definition
+
+-- Drop table
+
+-- DROP TABLE cbanc.opportunity_status;
+
+CREATE TABLE cbanc.opportunity_status (
+	id varchar(100) NOT NULL,
+	status varchar(100) NOT NULL,
+	CONSTRAINT opportunity_status_pk PRIMARY KEY (id)
+);
+
+
+-- cbanc.opprtunity_document_content_type definition
+
+-- Drop table
+
+-- DROP TABLE cbanc.opprtunity_document_content_type;
+
+CREATE TABLE cbanc.opprtunity_document_content_type (
+	id varchar(100) NOT NULL,
+	"type" varchar(100) NOT NULL,
+	CONSTRAINT opprtunity_content_type_pk PRIMARY KEY (id)
+);
+
+
+-- cbanc.opprtunity_document_type definition
+
+-- Drop table
+
+-- DROP TABLE cbanc.opprtunity_document_type;
+
+CREATE TABLE cbanc.opprtunity_document_type (
+	id varchar(100) NOT NULL,
+	"type" varchar(100) NOT NULL,
+	CONSTRAINT opprtunity_document_type_pk PRIMARY KEY (id)
+);
+
+
+-- cbanc.tag definition
+
+-- Drop table
+
+-- DROP TABLE cbanc.tag;
+
+CREATE TABLE cbanc.tag (
+	id varchar NOT NULL,
+	"name" varchar(100) NULL,
+	CONSTRAINT tags_pkey PRIMARY KEY (id)
+);
+
+
+-- cbanc.transfer_feepaidby definition
+
+-- Drop table
+
+-- DROP TABLE cbanc.transfer_feepaidby;
+
+CREATE TABLE cbanc.transfer_feepaidby (
+	id varchar(100) NOT NULL,
+	"name" varchar(100) NOT NULL,
+	CONSTRAINT transfer_feepaidby_id_pk PRIMARY KEY (id)
+);
+
+
+-- cbanc.transfer_status definition
+
+-- Drop table
+
+-- DROP TABLE cbanc.transfer_status;
+
+CREATE TABLE cbanc.transfer_status (
+	id varchar(100) NOT NULL,
+	status varchar(100) NOT NULL,
+	CONSTRAINT transfer_status_pk PRIMARY KEY (id)
+);
+
+
+-- cbanc.loan definition
+
+-- Drop table
+
+-- DROP TABLE cbanc.loan;
+
+CREATE TABLE cbanc.loan (
+	id varchar(100) NOT NULL,
+	created timestamp(0) NULL,
+	updated timestamp(0) NULL,
+	loan_status_id varchar(100) NOT NULL,
+	loan_type_id varchar(100) NOT NULL,
+	CONSTRAINT loan_pk PRIMARY KEY (id),
+	CONSTRAINT loan_status_fk FOREIGN KEY (loan_status_id) REFERENCES cbanc.loan_status(id),
+	CONSTRAINT loan_type_fk FOREIGN KEY (loan_type_id) REFERENCES cbanc.loan_type(id)
+);
+
+
+-- cbanc.loan_detail definition
+
+-- Drop table
+
+-- DROP TABLE cbanc.loan_detail;
+
+CREATE TABLE cbanc.loan_detail (
+	id varchar(100) NOT NULL,
+	daysdelinquent int4 NULL,
+	expectedpaymentamountinpennies int8 NULL,
+	interestrate float8 NULL,
+	maturitydate date NULL,
+	nextpaymentdate date NULL,
+	originalprincipalinpennies int8 NULL,
+	originationdate date NULL,
+	outstandingprincipalinpennies int8 NULL,
+	loan_detail_type_id varchar(100) NOT NULL,
+	loan_id varchar(100) NOT NULL,
+	CONSTRAINT loan_detail_pk PRIMARY KEY (id),
+	CONSTRAINT loan_detail_loan_fk FOREIGN KEY (loan_id) REFERENCES cbanc.loan(id),
+	CONSTRAINT loan_detail_type_fk FOREIGN KEY (loan_detail_type_id) REFERENCES cbanc.loan_detail_type(id)
+);
+
+
+-- cbanc.loan_detail_borrower definition
+
+-- Drop table
+
+-- DROP TABLE cbanc.loan_detail_borrower;
+
+CREATE TABLE cbanc.loan_detail_borrower (
+	id varchar(100) NOT NULL,
+	creditscore int4 NULL,
+	dti int4 NULL,
+	fullname varchar(100) NULL,
+	address_id varchar(100) NULL,
+	loan_detail_id varchar(100) NULL,
+	created timestamp(0) NULL,
+	updated timestamp(0) NULL,
+	CONSTRAINT loan_detail_borrower_fk FOREIGN KEY (address_id) REFERENCES cbanc.address(id),
+	CONSTRAINT loan_detail_borrower_fk_1 FOREIGN KEY (loan_detail_id) REFERENCES cbanc.loan_detail(id)
+);
+
+
+-- cbanc.loan_detail_collateral definition
+
+-- Drop table
+
+-- DROP TABLE cbanc.loan_detail_collateral;
+
+CREATE TABLE cbanc.loan_detail_collateral (
+	id varchar(100) NOT NULL,
+	valueinpennies int8 NOT NULL,
+	loan_detail_id varchar(100) NOT NULL,
+	address_id varchar(100) NULL,
+	created timestamp(0) NULL,
+	updated timestamp(0) NULL,
+	CONSTRAINT loan_detail_collateral_fk_2 FOREIGN KEY (loan_detail_id) REFERENCES cbanc.loan_detail(id),
+	CONSTRAINT loan_detail_collateral_fk_3 FOREIGN KEY (address_id) REFERENCES cbanc.address(id)
+);
+
+
+-- cbanc.opportunity definition
+
+-- Drop table
+
+-- DROP TABLE cbanc.opportunity;
+
+CREATE TABLE cbanc.opportunity (
+	id varchar NOT NULL,
+	"lead_userId" varchar(50) NULL,
+	"lead_fi_Id" varchar(50) NULL,
+	lead_name varchar(50) NULL,
+	"currentBalanceInPennies" int8 NULL,
+	"dueBy" timestamptz NOT NULL DEFAULT now(),
+	retaining int4 NOT NULL,
+	location_city varchar(50) NULL,
+	location_state varchar(50) NULL,
+	location_street varchar(50) NULL,
+	rate int4 NOT NULL,
+	term int4 NOT NULL,
+	description varchar(50) NULL,
+	amortization int4 NOT NULL,
+	grading varchar(50) NULL,
+	"leadFee_serviceFee" int8 NOT NULL,
+	"leadfee_flatFeeInPennies" int8 NOT NULL,
+	opportunity_status_id varchar(50) NULL,
+	"percentFunded" int4 NOT NULL,
+	"percentCommitted" int4 NOT NULL,
+	"contractId" varchar(50) NULL,
+	"resourceType" varchar(50) NULL,
+	created timestamptz NULL,
+	updated timestamptz NULL,
+	loan_id varchar(100) NOT NULL,
+	CONSTRAINT opportunity_id_pk PRIMARY KEY (id),
+	CONSTRAINT fi_id_fk FOREIGN KEY ("lead_fi_Id") REFERENCES cbanc.fi(id),
+	CONSTRAINT opportunity_fk FOREIGN KEY (opportunity_status_id) REFERENCES cbanc.opportunity_status(id),
+	CONSTRAINT opportunity_loan_fk FOREIGN KEY (loan_id) REFERENCES cbanc.loan(id)
+);
+
+
+-- cbanc.opportunity_document definition
+
+-- Drop table
+
+-- DROP TABLE cbanc.opportunity_document;
+
+CREATE TABLE cbanc.opportunity_document (
+	id varchar(100) NOT NULL,
+	opprtunity_document_type_id varchar(100) NOT NULL,
+	url varchar(1000) NOT NULL,
+	opprtunity_id varchar(100) NOT NULL,
+	opprtunity_document_content_type_id varchar(100) NOT NULL,
+	opportunity_document_posted_by_name varchar(100) NOT NULL,
+	opportunity_document_posted_by_fi_id varchar(100) NOT NULL,
+	opportunity_document_posted_by_user_id varchar(100) NOT NULL,
+	created timestamp(0) NULL,
+	updated timestamp(0) NULL,
+	CONSTRAINT opportunity_document_pk PRIMARY KEY (id),
+	CONSTRAINT opportunity_document_content_fk FOREIGN KEY (opprtunity_document_content_type_id) REFERENCES cbanc.opprtunity_document_content_type(id),
+	CONSTRAINT opportunity_document_fi_fk FOREIGN KEY (opportunity_document_posted_by_fi_id) REFERENCES cbanc.fi(id),
+	CONSTRAINT opportunity_document_type_fk FOREIGN KEY (opprtunity_document_type_id) REFERENCES cbanc.opprtunity_document_type(id),
+	CONSTRAINT opportunity_fk FOREIGN KEY (opprtunity_id) REFERENCES cbanc.opportunity(id)
+);
+
+
+-- cbanc.opportunity_tag definition
+
+-- Drop table
+
+-- DROP TABLE cbanc.opportunity_tag;
+
+CREATE TABLE cbanc.opportunity_tag (
+	tag_id varchar NOT NULL,
+	opportunity_id varchar NOT NULL,
+	CONSTRAINT opportunityid_fk FOREIGN KEY (opportunity_id) REFERENCES cbanc.opportunity(id),
+	CONSTRAINT tagsid_fk FOREIGN KEY (tag_id) REFERENCES cbanc.tag(id)
+);
+
+
+-- cbanc.deal definition
+
+-- Drop table
+
+-- DROP TABLE cbanc.deal;
+
+CREATE TABLE cbanc.deal (
+	id varchar(100) NOT NULL,
+	oppotunityid varchar(100) NULL,
+	percentfunded int4 NULL,
+	percentcommitted int4 NULL,
+	retaining int4 NULL,
+	deal_status_id varchar(100) NULL,
+	resourcetype varchar(100) NULL,
+	created timestamptz NULL DEFAULT now(),
+	updated timestamptz NULL DEFAULT now(),
+	CONSTRAINT deal_id_pk PRIMARY KEY (id),
+	CONSTRAINT deal_status_fk FOREIGN KEY (deal_status_id) REFERENCES cbanc.deal_status(id),
+	CONSTRAINT opportunity_id_fk FOREIGN KEY (oppotunityid) REFERENCES cbanc.opportunity(id)
+);
+
+
+-- cbanc.deal_participant definition
+
+-- Drop table
+
+-- DROP TABLE cbanc.deal_participant;
+
+CREATE TABLE cbanc.deal_participant (
+	id varchar(50) NOT NULL,
+	userid varchar(100) NOT NULL,
+	deal_id varchar(100) NOT NULL,
+	"percent" int4 NULL,
+	agreementid varchar(100) NULL,
+	resourcetype varchar(100) NULL,
+	fi_id varchar(100) NULL,
+	funded_amountinpennies int8 NULL,
+	funded_date timestamp NULL,
+	funded_user_id varchar(100) NULL,
+	funded_name varchar(100) NULL,
+	created timestamptz NULL DEFAULT now(),
+	updated timestamptz NULL DEFAULT now(),
+	CONSTRAINT deal_participant_pkey PRIMARY KEY (id),
+	CONSTRAINT deal_id_fk FOREIGN KEY (deal_id) REFERENCES cbanc.deal(id),
+	CONSTRAINT fi_id_fk FOREIGN KEY (fi_id) REFERENCES cbanc.fi(id)
+);
+
+
+-- cbanc.disbursement definition
+
+-- Drop table
+
+-- DROP TABLE cbanc.disbursement;
+
+CREATE TABLE cbanc.disbursement (
+	id varchar(100) NOT NULL,
+	amountinpennies varchar(100) NULL,
+	disbursement_status_id varchar(100) NULL,
+	"feeInpennies" int8 NULL,
+	disbursement_feepaidby_id varchar(100) NULL,
+	rollupid varchar(100) NULL,
+	disbursement_money_status_id varchar(100) NULL,
+	principalinpennies int4 NULL,
+	disbursementdetails_interestinpennies int4 NULL,
+	borrowerfeesinpennies int4 NULL,
+	sellerfeesinpennies int4 NULL,
+	memo varchar(100) NULL,
+	previousprincipalbalanceinpennies int4 NULL,
+	deal_participant_id varchar(100) NOT NULL,
+	created timestamptz NULL DEFAULT now(),
+	updated timestamptz NULL DEFAULT now(),
+	CONSTRAINT disbursement_pkey PRIMARY KEY (id),
+	CONSTRAINT deal_participant_fk FOREIGN KEY (deal_participant_id) REFERENCES cbanc.deal_participant(id),
+	CONSTRAINT disbursement_feepaidby_fk FOREIGN KEY (disbursement_feepaidby_id) REFERENCES cbanc.disbursement_feepaidby(id),
+	CONSTRAINT disbursement_money_status_fk FOREIGN KEY (disbursement_money_status_id) REFERENCES cbanc.disbursement_money_status(id),
+	CONSTRAINT disbursement_status_fk FOREIGN KEY (disbursement_status_id) REFERENCES cbanc.disbursement_status(id)
+);
+
+
+-- cbanc.message definition
+
+-- Drop table
+
+-- DROP TABLE cbanc.message;
+
+CREATE TABLE cbanc.message (
+	id varchar(100) NOT NULL,
+	deal_participant_id varchar(100) NOT NULL,
+	subject varchar(100) NULL,
+	author_userid varchar(100) NULL,
+	author_name varchar(100) NULL,
+	body varchar(100) NULL,
+	created timestamptz NULL DEFAULT now(),
+	updated timestamptz NULL DEFAULT now(),
+	CONSTRAINT message_pkey PRIMARY KEY (id),
+	CONSTRAINT deal_participantfk FOREIGN KEY (deal_participant_id) REFERENCES cbanc.deal_participant(id)
+);
+
+
+-- cbanc.transfer definition
+
+-- Drop table
+
+-- DROP TABLE cbanc.transfer;
+
+CREATE TABLE cbanc.transfer (
+	id varchar(100) NOT NULL,
+	amountinpennies varchar(100) NULL,
+	transfer_status_id varchar(100) NULL,
+	"feeInpennies" int8 NULL,
+	transfer_feepaidby_id varchar(100) NULL,
+	rollupid varchar(100) NULL,
+	moneywas varchar(100) NULL,
+	previousprincipalbalanceinpennies int4 NULL,
+	deal_participant_id varchar(100) NULL,
+	created timestamptz NULL DEFAULT now(),
+	updated timestamptz NULL DEFAULT now(),
+	CONSTRAINT transfer_pk PRIMARY KEY (id),
+	CONSTRAINT deal_participant_fk FOREIGN KEY (deal_participant_id) REFERENCES cbanc.deal_participant(id),
+	CONSTRAINT transfer_feepaidby_fk FOREIGN KEY (transfer_feepaidby_id) REFERENCES cbanc.transfer_feepaidby(id),
+	CONSTRAINT transfer_status_fk FOREIGN KEY (transfer_status_id) REFERENCES cbanc.transfer_status(id)
+);

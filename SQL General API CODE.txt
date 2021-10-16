@@ -1,0 +1,35 @@
+Insert API CODE
+
+const insertdeal = (request, response) => {
+const { id, oppotunityid, percentfunded, percentcommitted, retaining, deal_status_id, resourcetype, created, updated } = request.body
+  pool.query( "INSERT INTO cbanc2.deal (id, oppotunityid, percentfunded, percentcommitted, retaining, deal_status_id, resourcetype, created, updated) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)",[id, oppotunityid, percentfunded, percentcommitted, retaining, deal_status_id, resourcetype, created, updated], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(201).send('A new row is inserted in deal')
+  })
+}
+
+
+INNER JOIN Get API CODE
+
+const getdeal = (request, response) => {
+  pool.query('select A.id, A.opportunityid,A.percentfunded,A.percentcommitted,A.retaining,A.deal_status_id,A.resourcetype,A.created,A.updated from cbanc2.deal A INNER JOIN cbanc2.opportunity B ON A.opportunityid= B.id ', (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).json(results.rows)
+  })
+}
+
+GET countries
+
+const getCountries = (request, response) => {
+  pool.query('SELECT * FROM countries ORDER BY id ASC', (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).json(results.rows)
+  })
+}
+

@@ -1,0 +1,85 @@
+1.fi(id)-----PRIMARY KEY
+
+2.opportunity(id)-----PRIMARY KEY
+     *opportunity(lead_fi_id)
+     *opportunity(opportunity_status_id)
+     *opportunity(loan_id)
+
+3.opportunity document
+    *opportunity_document(opportunity_id)
+    *oppotunity_document(opportunity_document_posted_by_fi_id)
+
+4.opportunity_status-----PRIMARY KEY
+
+5.deal(id)------PRIMARY KEY   
+    *deal(opportunityid)
+    *deal(deal_status_id)
+
+6.deal_status(id)------PRIMARY KEY
+
+7.deal_participant------PRIMARY KEY
+     *deal_participant(fi_id)
+     *deal_participant(deal id)
+
+8.message
+    *message(deal_participant_id)
+
+
+9.loan(id)------PRIMARY KEY
+     *loan(loan_status_id) 
+      *loan(loan_type_id)   
+ 
+10.loan_status(id)------ PRIMARY KEY    
+
+11.loan_type(id)------ PRIMARY KEY 
+
+12.loan_detail_type(id)------PRIMARY KEY 
+
+13loan_detail(id)-----PRIMARY KEY
+      *loan_detail(loan_id)
+      *loan_detail(loan_detail_type_id)
+
+14.loan_detail_borrower
+    *loan_detail_borrower(loan_detail_id)
+    *loan_detail_borrower(address_id)
+
+15.loan_detail_collateral
+    *loan_detail_collateral(loan_detail_id)
+    *loan_detail_collateral(adrress_id)
+
+16.address(id)------PRIMARY KEY
+
+17.transfer    
+    *transfer(deal_participant_id)
+    *transfer(transfer_feepaidby_id)
+     *transfer(transfer_status_id)
+
+18.transfer_feepaidby(id)------PRIMARY KEY
+
+19.transfer_status(id)------PRIMARY KEY
+
+20.tag(id)------PRIMARY KEY
+    
+21.opportunity_tag
+     *opportunity_tag(tag_id)
+      *opportunity_tag(opportunity_id)
+   
+ 
+22.disbursement(id)------PRIMARY KEY
+    *disbursement(deal_participant_id)
+     * fee
+     *money_status 
+     *status
+23.disbursement_feepaidby------PRIMARY KEY
+    
+24.disbursement_money_status------PRIMARY KEY
+    
+25.disbursement_status------PRIMARY KEY
+    
+   
+
+
+    
+
+
+    
